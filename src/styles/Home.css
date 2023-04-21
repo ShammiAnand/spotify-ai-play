@@ -1,0 +1,36 @@
+.Home {
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(26, 166, 39, 1) 100%,
+    rgba(0, 212, 255, 1) 100%
+  );
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.Home textarea {
+  border-radius: 20px;
+  border: none;
+  outline-width: 0;
+  padding: 20px;
+}
+
+.Home button {
+  width: 35%;
+  height: 5vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  text-decoration: none;
+  border: none;
+  color: #fff;
+  background-color: black;
+  margin-top: 2rem;
+  cursor: pointer;
+}
