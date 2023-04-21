@@ -11,40 +11,51 @@ function Home({ token }) {
   };
 
   const handleButtonClick = () => {
-    const prompt = `Pretend you have great taste in music. Generate 5 similar songs including artist, title, and release year.: ${inputValue}`;
+    fetchSongs();
+  };
+
+  const fetchSongs = async () => {
+    const prompt = `Pretend you have great taste in music. Generate 5 similar songs including artist, title, and release year: ${inputValue}`;
 
     console.log("prompt", prompt);
 
     const configuration = new Configuration({
-      apiKey: "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",
+      apiKey: "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",
     });
 
     const openai = new OpenAIApi(configuration);
+    const completion = await openai
+      .createChatCompletion({
+        model: "gpt-3.5-turbo",
+        messages: [{ role: "user", content: `${prompt}` }],
+      })
+      .then((response) => {
+        console.log("response", response);
+        console.log("answer\n", response.data.choices[0].message.content);
+        const answer = response.data.choices[0].message.content;
+        const songs = answer.split("\n");
 
-    if (inputValue) {
-      openai
-        .createCompletion({
-          model: "text-davinci-002",
-          prompt,
-          temperature: 0.7,
-          maxTokens: 50,
-          n: 5,
-        })
-        .then((response) => {
-          const songs = response.choices.map((choice) => {
-            return {
-              artist: choice.text.split(" - ")[0],
-              title: choice.text.split(" - ")[1],
-              releaseYear: choice.text.split("(")[1].split(")")[0],
-              trackID: choice.text.split(" ")[0],
-            };
-          });
-          console.log("generated_songs", songs);
-          setGeneratedSongs(songs);
-        })
-        .catch((error) => console.log(error));
-    }
+        const parsedSongs = songs
+          .map((song, index) => {
+            const regex = /^(\d+)\.\s"(.+)"\sby\s(.+)\s\((\d+)\)$/;
+            const matches = song.match(regex);
+
+            if (matches) {
+              const [, songNumber, title, artist, releaseDate] = matches;
+              return { id: index, title, artist, releaseDate };
+            }
+
+            return null;
+          })
+          .filter(Boolean);
+
+        setGeneratedSongs(parsedSongs);
+      });
   };
+
+  useEffect(() => {
+    console.log("generatedSongs", generatedSongs);
+  }, [generatedSongs]);
 
   return (
     <div className="Home">
@@ -59,7 +70,7 @@ function Home({ token }) {
       </button>
       <div className="GeneratedSongs">
         {generatedSongs.map((song, index) => (
-          <div key={index}>
+          <div key={index} className="song">
             {song.title} by {song.artist} ({song.releaseYear})
           </div>
         ))}
