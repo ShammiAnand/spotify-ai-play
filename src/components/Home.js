@@ -20,7 +20,7 @@ function Home({ token }) {
     console.log("prompt", prompt);
 
     const configuration = new Configuration({
-      apiKey: "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",
+      apiKey: "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",
     });
 
     const openai = new OpenAIApi(configuration);
@@ -49,7 +49,7 @@ function Home({ token }) {
           })
           .filter(Boolean);
 
-        setGeneratedSongs(parsedSongs);
+        if (parsedSongs.length) setGeneratedSongs(parsedSongs);
       });
   };
 
@@ -68,13 +68,15 @@ function Home({ token }) {
       <button className="GenerateSongsButton" onClick={handleButtonClick}>
         Generate Songs
       </button>
-      <div className="GeneratedSongs">
-        {generatedSongs.map((song, index) => (
-          <div key={index} className="song">
-            {song.title} by {song.artist} ({song.releaseYear})
-          </div>
-        ))}
-      </div>
+      {generatedSongs.length > 0 && (
+        <div className="GeneratedSongs">
+          {generatedSongs.map((song, index) => (
+            <div key={index} className="song">
+              {song.title} by {song.artist} - {song.releaseDate}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
