@@ -50,7 +50,7 @@ function Playlist({ token, songs }) {
       playlistDescription,
       trackIds
     );
-    console.log("response\n", response);
+    // console.log("response\n", response);
 
     if (response.status === 201 || response.status === 200) {
       setPlaylistCreated(true);

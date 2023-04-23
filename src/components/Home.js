@@ -35,7 +35,7 @@ function Home({ token }) {
     Output format: <song number>. "<song title>" by <artist> (<release year>).\n
     ${inputValue}`;
 
-    console.log("prompt\n", prompt);
+    // console.log("prompt\n", prompt);
 
     const configuration = new Configuration({
       apiKey: `${process.env.REACT_APP_CHATGPT_API_KEY}`,
@@ -48,8 +48,8 @@ function Home({ token }) {
         messages: [{ role: "user", content: `${prompt}` }],
       })
       .then((response) => {
-        console.log("response\n", response);
-        console.log("answer\n", response.data.choices[0].message.content);
+        // console.log("response\n", response);
+        // console.log("answer\n", response.data.choices[0].message.content);
         const answer = response.data.choices[0].message.content;
         const songs = answer.split("\n");
 
