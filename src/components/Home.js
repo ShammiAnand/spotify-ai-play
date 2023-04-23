@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../styles/Home.css";
 import { Configuration, OpenAIApi } from "openai";
 import Playlist from "./Playlist";
-import { Button } from "@mui/material";
+import { Box, Button } from "@mui/material";
 
 function Home({ token }) {
   const [inputValue, setInputValue] = useState("");
@@ -94,49 +94,58 @@ function Home({ token }) {
       ) : (
         <Playlist token={token} songs={generatedSongs} />
       )}
-      <Button
-        variant="contained"
+      <Box
         sx={{
-          backgroundColor: "black",
-          color: "white",
-          "&:hover": {
+          width: "[90%, 70%, 50%]",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <Button
+          variant="contained"
+          sx={{
             backgroundColor: "black",
             color: "white",
-          },
-          "&:disabled": {
-            backgroundColor: "gray",
-            color: "white",
-          },
-          borderRadius: "15px",
-          mt: "2rem",
-        }}
-        onClick={handleButtonClick}
-        disabled={clicked}
-      >
-        Generate Songs
-      </Button>
-
-      <Button
-        variant="contained"
-        sx={{
-          backgroundColor: "red",
-          color: "white",
-          "&:hover": {
+            "&:hover": {
+              backgroundColor: "black",
+              color: "white",
+            },
+            "&:disabled": {
+              backgroundColor: "gray",
+              color: "white",
+            },
+            borderRadius: "15px",
+            mt: "2rem",
+            mr: "2rem",
+          }}
+          onClick={handleButtonClick}
+          disabled={clicked}
+        >
+          Generate Songs
+        </Button>
+        <Button
+          variant="contained"
+          sx={{
             backgroundColor: "red",
             color: "white",
-          },
-          borderRadius: "15px",
-          mt: "2rem",
-        }}
-        onClick={() => {
-          // delete local storage access token
-          localStorage.removeItem("spotify_access_t3");
-          // reload the page
-          window.location.reload();
-        }}
-      >
-        Logout
-      </Button>
+            "&:hover": {
+              backgroundColor: "red",
+              color: "white",
+            },
+            borderRadius: "15px",
+            mt: "2rem",
+          }}
+          onClick={() => {
+            // delete local storage access token
+            localStorage.removeItem("spotify_access_t4");
+            // reload the page
+            window.location.reload();
+          }}
+        >
+          Logout
+        </Button>
+      </Box>
     </div>
   );
 }

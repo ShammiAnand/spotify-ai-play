@@ -61,7 +61,7 @@ function Playlist({ token, songs }) {
 
   const fetchSongs = async () => {
     setLoading(true);
-    console.log("songs\n", songs);
+    // console.log("songs\n", songs);
 
     // filter out songs that are null or undefined
     songs = songs.filter((song) => song !== null && song !== undefined);
@@ -79,7 +79,7 @@ function Playlist({ token, songs }) {
           }
         );
         const data = await response.json();
-        console.log(`song ${song.title}`, data);
+        // console.log(`song ${song.title}`, data);
         return data.tracks.items.length > 0 ? data.tracks.items[0] : null;
       })
     );
@@ -87,7 +87,7 @@ function Playlist({ token, songs }) {
     const __tracks = _tracks.filter(
       (track) => track !== null && track !== undefined
     );
-    console.log("tracks\n", __tracks);
+    // console.log("tracks\n", __tracks);
     setTracks(__tracks);
     setTrackIds(__tracks.map((track) => track.id));
     setLoading(false);
