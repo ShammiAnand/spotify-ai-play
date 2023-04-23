@@ -10,6 +10,9 @@ const scopes = [
   "user-read-playback-state",
   "user-top-read",
   "user-modify-playback-state",
+  "user-library-modify",
+  "playlist-modify-public",
+  "playlist-modify-private",
 ];
 
 export const getTokenFromResponse = () => {
@@ -22,6 +25,56 @@ export const getTokenFromResponse = () => {
 
       return initial;
     }, {});
+};
+
+export const createPlaylist = async (
+  token,
+  playlistName,
+  playlistDescription,
+  trackIds
+) => {
+  const userResponse = await fetch("https://api.spotify.com/v1/me", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const userData = await userResponse.json();
+  const userId = userData.id;
+
+  console.log("user_fetched\n", userData);
+
+  const playlistResponse = await fetch(
+    `https://api.spotify.com/v1/users/${userId}/playlists`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: playlistName,
+        description: playlistDescription,
+        public: false,
+      }),
+    }
+  );
+  const playlistData = await playlistResponse.json();
+  const playlistId = playlistData.id;
+
+  console.log("playlist_fetched\n", playlistData);
+
+  await fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      uris: trackIds.map((id) => `spotify:track:${id}`),
+    }),
+  });
+
+  return playlistData;
 };
 
 export const accessUrl = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(

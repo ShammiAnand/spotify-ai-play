@@ -5,7 +5,7 @@ import Home from "./Home";
 
 function App() {
   const [token, setToken] = useState(
-    localStorage.getItem("spotify_access_token") || null
+    localStorage.getItem("spotify_access_t2") || null
   );
 
   useEffect(() => {
@@ -15,7 +15,7 @@ function App() {
 
     if (_token) {
       setToken(_token);
-      localStorage.setItem("spotify_access_token", _token);
+      localStorage.setItem("spotify_access_t2", _token);
     }
   }, []);
 

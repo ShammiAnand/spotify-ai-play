@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "../styles/Home.css";
 import { Configuration, OpenAIApi } from "openai";
+import Playlist from "./Playlist";
+import { Button } from "@mui/material";
 
 function Home({ token }) {
   const [inputValue, setInputValue] = useState("");
@@ -13,7 +15,6 @@ function Home({ token }) {
 
   const handleButtonClick = () => {
     if (!clicked) {
-      setClicked(true);
       fetchSongs();
     }
   };
@@ -77,24 +78,32 @@ function Home({ token }) {
           setInputValue("No songs found");
         }
       });
+    setClicked(true);
   };
 
   return (
     <div className="Home">
-      <textarea
-        cols="30"
-        rows="10"
-        value={inputValue}
-        onChange={handleInputChange}
-        placeholder="Enter your songs here..."
-      />
-      <button
-        className="GenerateSongsButton"
+      {generatedSongs.length === 0 ? (
+        <textarea
+          cols="30"
+          rows="10"
+          value={inputValue}
+          onChange={handleInputChange}
+          placeholder="Enter your songs here..."
+        />
+      ) : (
+        <Playlist token={token} songs={generatedSongs} />
+      )}
+      <Button
+        variant="contained"
+        sx={{
+          backgroundColor: "black",
+        }}
         onClick={handleButtonClick}
         disabled={clicked}
       >
         Generate Songs
-      </button>
+      </Button>
     </div>
   );
 }
