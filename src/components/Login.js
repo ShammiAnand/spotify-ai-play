@@ -1,6 +1,7 @@
 import React from "react";
 import { accessUrl } from "../auth";
 import "../styles/Login.css";
+import { Button } from "@mui/material";
 
 function Login() {
   return (
@@ -9,7 +10,9 @@ function Login() {
         src="https://getheavy.com/wp-content/uploads/2019/12/spotify2019-830x350.jpg"
         alt=""
       />
-      <a href={accessUrl}>LOGIN</a>
+      <Button variant="contained" color="success">
+        <a href={accessUrl}>LOGIN</a>
+      </Button>
     </div>
   );
 }

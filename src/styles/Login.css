@@ -13,14 +13,15 @@
 }
 
 .login a {
-  width: 20vw;
+  /* width: 20vw;
   height: 5vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 20px;
+  border-radius: 20px; */
   text-decoration: none;
   color: #fff;
+  /* color: #fff;
   background-color: green;
-  margin-top: 2rem;
+  margin-top: 2rem; */
 }

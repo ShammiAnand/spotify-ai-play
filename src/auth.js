@@ -2,8 +2,14 @@
 export const authEndpoint = "https://accounts.spotify.com/authorize";
 
 // Replace with your app's client ID, redirect URI and desired scopes
-const clientId = "79146e34a262451b8ddfbe30e58e4d9f";
-const redirectUri = "http://localhost:3000/";
+// use cliend id from env
+
+const clientId = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
+// use vercel for deployment
+// make the redirectUri the deployed url
+
+const redirectUri =
+  "http://localhost:3000/" || "https://playlist-ai-zeta.vercel.app/";
 const scopes = [
   "user-read-currently-playing",
   "user-read-recently-played",
@@ -41,7 +47,7 @@ export const createPlaylist = async (
   const userData = await userResponse.json();
   const userId = userData.id;
 
-  console.log("user_fetched\n", userData);
+  // console.log("user_fetched\n", userData);
 
   const playlistResponse = await fetch(
     `https://api.spotify.com/v1/users/${userId}/playlists`,
@@ -61,7 +67,7 @@ export const createPlaylist = async (
   const playlistData = await playlistResponse.json();
   const playlistId = playlistData.id;
 
-  console.log("playlist_fetched\n", playlistData);
+  // console.log("playlist_fetched\n", playlistData);
 
   await fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {
     method: "POST",

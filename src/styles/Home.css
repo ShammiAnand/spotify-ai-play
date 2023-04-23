@@ -19,7 +19,7 @@
   outline-width: 0;
   padding: 20px;
 }
-
+/* 
 .Home button {
   width: 35%;
   height: 5vh;
@@ -63,4 +63,4 @@
 .Home button:disabled {
   background-color: #ccc;
   cursor: not-allowed;
-}
+} */

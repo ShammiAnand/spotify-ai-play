@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-// import { makeStyles } from "@mui/styles";
-// import Modal from "@material-ui/core/Modal";
+
 import {
   Modal,
   Button,
@@ -24,12 +23,16 @@ function Playlist({ token, songs }) {
   const [trackIds, setTrackIds] = useState([]);
   const [playlistCreated, setPlaylistCreated] = useState(false);
   const [tracks, setTracks] = useState([]);
+  const [tracksLoaded, setTracksLoaded] = useState(false);
 
   const handleOpen = () => {
     setOpen(true);
-    setPlaylistCreated(true);
     fetchSongs();
   };
+
+  useEffect(() => {
+    if (tracks.length > 0) setTracksLoaded(true);
+  }, [tracks]);
 
   const handleClose = () => {
     setOpen(false);
@@ -51,6 +54,7 @@ function Playlist({ token, songs }) {
     if (response.status === 201 || response.status === 200) {
       setPlaylistCreated(true);
     }
+    setPlaylistCreated(true);
     handleClose();
   };
 
@@ -78,22 +82,36 @@ function Playlist({ token, songs }) {
         return data.tracks.items.length > 0 ? data.tracks.items[0] : null;
       })
     );
-    setLoading(false);
     // remove null values from tracks
-    _tracks.filter((track) => track !== null && track !== undefined);
-    console.log("tracks\n", _tracks);
-    setTracks(_tracks);
-    setTrackIds(_tracks.map((track) => track.id));
+    const __tracks = _tracks.filter(
+      (track) => track !== null && track !== undefined
+    );
+    console.log("tracks\n", __tracks);
+    setTracks(__tracks);
+    setTrackIds(__tracks.map((track) => track.id));
+    setLoading(false);
     // return tracks;
   };
 
   return (
     <>
       <Button
-        variant="outlined"
-        color="primary"
+        variant="contained"
         onClick={handleOpen}
         disabled={playlistCreated}
+        sx={{
+          backgroundColor: "green",
+          color: "white",
+          "&:hover": {
+            backgroundColor: "black",
+            color: "white",
+          },
+          "&:disabled": {
+            backgroundColor: "gray",
+            color: "white",
+          },
+          borderRadius: "15px",
+        }}
       >
         {`${playlistCreated ? "Playlist Created" : "Create Playlist"}`}
       </Button>
@@ -123,7 +141,7 @@ function Playlist({ token, songs }) {
             <CircularProgress />
           ) : (
             <Box>
-              <Typography variant="h2">Create Playlist</Typography>
+              <Typography variant="h3">Create Playlist</Typography>
               <Box
                 sx={{
                   display: "flex",
@@ -160,13 +178,14 @@ function Playlist({ token, songs }) {
                   flexDirection: "row",
                   justifyContent: "space-between",
                   alignItems: "center",
+                  mt: "2rem",
                 }}
               >
                 <Button
                   variant="contained"
                   color="primary"
                   onClick={handleSubmit}
-                  sx={{ mb: "1rem" }}
+                  sx={{ mb: "1rem", backgroundColor: "green" }}
                 >
                   Create
                 </Button>

@@ -38,7 +38,7 @@ function Home({ token }) {
     console.log("prompt\n", prompt);
 
     const configuration = new Configuration({
-      apiKey: "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",
+      apiKey: `${process.env.REACT_APP_CHATGPT_API_KEY}`,
     });
 
     const openai = new OpenAIApi(configuration);
@@ -98,11 +98,44 @@ function Home({ token }) {
         variant="contained"
         sx={{
           backgroundColor: "black",
+          color: "white",
+          "&:hover": {
+            backgroundColor: "black",
+            color: "white",
+          },
+          "&:disabled": {
+            backgroundColor: "gray",
+            color: "white",
+          },
+          borderRadius: "15px",
+          mt: "2rem",
         }}
         onClick={handleButtonClick}
         disabled={clicked}
       >
         Generate Songs
+      </Button>
+
+      <Button
+        variant="contained"
+        sx={{
+          backgroundColor: "red",
+          color: "white",
+          "&:hover": {
+            backgroundColor: "red",
+            color: "white",
+          },
+          borderRadius: "15px",
+          mt: "2rem",
+        }}
+        onClick={() => {
+          // delete local storage access token
+          localStorage.removeItem("spotify_access_t3");
+          // reload the page
+          window.location.reload();
+        }}
+      >
+        Logout
       </Button>
     </div>
   );
