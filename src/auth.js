@@ -8,8 +8,9 @@ const clientId = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
 // use vercel for deployment
 // make the redirectUri the deployed url
 
-const redirectUri =
-  "http://localhost:3000/" || "https://playlist-ai-zeta.vercel.app/";
+const redirectUri = "https://playlist-ai-zeta.vercel.app/";
+// const redirectUriLocal = "http://localhost:3000/";
+
 const scopes = [
   "user-read-currently-playing",
   "user-read-recently-played",
