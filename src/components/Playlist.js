@@ -26,6 +26,7 @@ function Playlist({ token, songs }) {
   const [tracksLoaded, setTracksLoaded] = useState(false);
 
   const handleOpen = () => {
+    setPlaylistCreated(true);
     setOpen(true);
     fetchSongs();
   };
