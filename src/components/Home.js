@@ -3,6 +3,8 @@ import "../styles/Home.css";
 import { Configuration, OpenAIApi } from "openai";
 import Playlist from "./Playlist";
 import { Box, Button } from "@mui/material";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import TextField from "@mui/material/TextField";
 
 function Home({ token }) {
   const [inputValue, setInputValue] = useState("");
@@ -84,13 +86,45 @@ function Home({ token }) {
 
   return (
     <div className="Home">
-      <textarea
-        cols="30"
-        rows="10"
+      <Box
+        sx={{
+          width: "100%",
+          height: "30vh",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <TextField
+          id="outlined-multiline-flexible"
+          label="Playlist AI"
+          multiline
+          maxRows={7}
+          defaultValue={inputValue}
+          onChange={handleInputChange}
+          placeholder="let us know some of your favorite songs and we'll generate some similar ones for you!"
+          sx={{
+            width: "[50%, 90%]",
+            color: "white",
+            // backgroundColor: "white",
+            // borderRadius: "15px",
+          }}
+          InputLabelProps={{
+            style: {
+              color: "orange",
+              fontWeight: "bold",
+            },
+          }}
+        />
+      </Box>
+      {/* <textarea
+        cols="35"
+        rows="15"
         value={inputValue}
         onChange={handleInputChange}
         placeholder="let us know some of your favorite songs and we'll generate some similar ones for you!"
-      />
+      /> */}
       <Box
         sx={{
           width: "[90%, 70%, 50%]",
@@ -141,7 +175,7 @@ function Home({ token }) {
             window.location.reload();
           }}
         >
-          Logout
+          <ExitToAppIcon />
         </Button>
       </Box>
       {generatedSongs.length > 0 && (

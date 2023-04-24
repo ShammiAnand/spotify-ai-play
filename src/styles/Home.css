@@ -1,12 +1,15 @@
 .Home {
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(
+  /* background: linear-gradient(
     90deg,
     rgba(2, 0, 36, 1) 0%,
     rgba(26, 166, 39, 1) 100%,
     rgba(0, 212, 255, 1) 100%
-  );
+  ); */
+  background-color: #85ffbd;
+  background-image: linear-gradient(45deg, #85ffbd 0%, #fffb7d 100%);
+
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -17,7 +20,7 @@
   border-radius: 20px;
   border: none;
   outline-width: 0;
-  padding: 20px;
+  /* padding: 20px; */
   /* margin-bottom: 2rem; */
 }
 /* 
