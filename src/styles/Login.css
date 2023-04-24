@@ -3,13 +3,13 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   background-color: black;
 }
 
 .login img {
-  width: 100%;
+  width: 50%;
 }
 
 .login a {

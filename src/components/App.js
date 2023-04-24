@@ -5,9 +5,7 @@ import Home from "./Home";
 import { Button } from "@mui/material";
 
 function App() {
-  const [token, setToken] = useState(
-    localStorage.getItem("spotify_access_t4") || null
-  );
+  const [token, setToken] = useState(null);
 
   useEffect(() => {
     const hash = getTokenFromResponse();
@@ -16,7 +14,7 @@ function App() {
 
     if (_token) {
       setToken(_token);
-      localStorage.setItem("spotify_access_t4", _token);
+      // localStorage.setItem("spotify_access_t4", _token);
     }
   }, []);
 

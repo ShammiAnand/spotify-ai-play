@@ -15,6 +15,7 @@ function Home({ token }) {
 
   const handleButtonClick = () => {
     if (!clicked) {
+      setClicked(true);
       fetchSongs();
     }
   };
@@ -83,23 +84,20 @@ function Home({ token }) {
 
   return (
     <div className="Home">
-      {generatedSongs.length === 0 ? (
-        <textarea
-          cols="30"
-          rows="10"
-          value={inputValue}
-          onChange={handleInputChange}
-          placeholder="Enter your songs here..."
-        />
-      ) : (
-        <Playlist token={token} songs={generatedSongs} />
-      )}
+      <textarea
+        cols="30"
+        rows="10"
+        value={inputValue}
+        onChange={handleInputChange}
+        placeholder="Enter your songs here..."
+      />
       <Box
         sx={{
           width: "[90%, 70%, 50%]",
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
+          mb: "2rem",
         }}
       >
         <Button
@@ -138,7 +136,7 @@ function Home({ token }) {
           }}
           onClick={() => {
             // delete local storage access token
-            localStorage.removeItem("spotify_access_t4");
+            // localStorage.removeItem("spotify_access_t4");
             // reload the page
             window.location.reload();
           }}
@@ -146,6 +144,9 @@ function Home({ token }) {
           Logout
         </Button>
       </Box>
+      {generatedSongs.length > 0 && (
+        <Playlist token={token} songs={generatedSongs} />
+      )}
     </div>
   );
 }
