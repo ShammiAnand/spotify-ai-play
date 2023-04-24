@@ -32,7 +32,7 @@ function Home({ token }) {
 
   const fetchSongs = async () => {
     const prompt = `Pretend you have great taste in music.
-    Your task is to generate 5 similar songs based on the below songs.
+    Your task is to generate 10 similar songs based on the below songs.
     Output format: <song number>. "<song title>" by <artist> (<release year>).\n
     ${inputValue}`;
 
@@ -89,7 +89,7 @@ function Home({ token }) {
         rows="10"
         value={inputValue}
         onChange={handleInputChange}
-        placeholder="Enter your songs here..."
+        placeholder="let us know some of your favorite songs and we'll generate some similar ones for you!"
       />
       <Box
         sx={{
