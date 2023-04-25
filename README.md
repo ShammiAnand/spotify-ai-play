@@ -8,6 +8,6 @@ Disclaimer: You need to be invited to be able to fully use the app. Send me an e
 ## Steps to use the deployed link:
 1. Get invite (Send me an email)
 2. Once you have invite
-  2.1 you can login to spotify using the invite email (if you already have a spotify account)
-  2.1 or you can signup to spotify using the invite email and confirm you account through the email link
+   * you can login to spotify using the invite email (if you already have a spotify account)
+   * or you can signup to spotify using the invite email and confirm you account through the email link
 3. Now you can use the web app fully
