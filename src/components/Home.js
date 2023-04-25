@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import "../styles/Home.css";
 import { Configuration, OpenAIApi } from "openai";
 import Playlist from "./Playlist";
-import { Box, Button } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import TextField from "@mui/material/TextField";
+import LoadingButton from "@mui/lab/LoadingButton";
+import QueueMusicIcon from "@mui/icons-material/QueueMusic";
 
 function Home({ token }) {
   const [inputValue, setInputValue] = useState("");
@@ -88,99 +90,121 @@ function Home({ token }) {
     <div className="Home">
       <Box
         sx={{
-          width: "100%",
-          height: "30vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        <QueueMusicIcon
+          sx={{
+            fontSize: "2rem",
+            color: "white",
+          }}
+        />
+        <Typography
+          sx={{
+            fontSize: "1rem",
+            color: "white",
+            fontWeight: "bold",
+          }}
+        >
+          Playlist.AI by Shammi
+        </Typography>
+      </Box>
+      <Box
+        sx={{
+          width: "100vw",
+          height: "80vh",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
         }}
       >
-        <TextField
-          id="outlined-multiline-flexible"
-          label="Playlist AI"
-          multiline
-          maxRows={7}
-          defaultValue={inputValue}
-          onChange={handleInputChange}
-          placeholder="let us know some of your favorite songs and we'll generate some similar ones for you!"
+        <Box
           sx={{
-            width: "[50%, 90%]",
-            color: "white",
-            // backgroundColor: "white",
-            // borderRadius: "15px",
+            width: "100%",
+            height: "30vh",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "flex-end",
+            mb: "2rem",
           }}
-          InputLabelProps={{
-            style: {
-              color: "orange",
-              fontWeight: "bold",
-            },
-          }}
-        />
-      </Box>
-      {/* <textarea
-        cols="35"
-        rows="15"
-        value={inputValue}
-        onChange={handleInputChange}
-        placeholder="let us know some of your favorite songs and we'll generate some similar ones for you!"
-      /> */}
-      <Box
-        sx={{
-          width: "[90%, 70%, 50%]",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          mb: "2rem",
-        }}
-      >
-        <Button
-          variant="contained"
+        >
+          <TextField
+            id="outlined-multiline-flexible"
+            label="Playlist AI"
+            multiline
+            maxRows={10}
+            value={inputValue}
+            onChange={handleInputChange}
+            placeholder="let us know some of your favorite songs and we'll generate some similar ones for you!"
+            sx={{
+              // width for mobile, tablet, desktop
+              width: "[90%, 70%, 50%]",
+              width: "75%",
+              color: "white",
+              // backgroundColor: "white",
+              // borderRadius: "15px",
+            }}
+            InputLabelProps={{
+              style: {
+                color: "orange",
+                fontWeight: "bold",
+              },
+            }}
+          />
+        </Box>
+        <Box
           sx={{
-            backgroundColor: "black",
-            color: "white",
-            "&:hover": {
+            width: "[90%, 70%, 50%]",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            mb: "2rem",
+          }}
+        >
+          <LoadingButton
+            variant="contained"
+            sx={{
               backgroundColor: "black",
               color: "white",
-            },
-            "&:disabled": {
-              backgroundColor: "gray",
-              color: "white",
-            },
-            borderRadius: "15px",
-            mt: "2rem",
-            mr: "2rem",
-          }}
-          onClick={handleButtonClick}
-          disabled={clicked}
-        >
-          Generate Songs
-        </Button>
-        <Button
-          variant="contained"
-          sx={{
-            backgroundColor: "red",
-            color: "white",
-            "&:hover": {
+              borderRadius: "15px",
+              mr: "2rem",
+            }}
+            onClick={handleButtonClick}
+            // stop loading after 10 seconds
+            loading={clicked}
+          >
+            {" "}
+            Generate Songs
+          </LoadingButton>
+          <Button
+            variant="contained"
+            sx={{
               backgroundColor: "red",
               color: "white",
-            },
-            borderRadius: "15px",
-            mt: "2rem",
-          }}
-          onClick={() => {
-            // delete local storage access token
-            // localStorage.removeItem("spotify_access_t4");
-            // reload the page
-            window.location.reload();
-          }}
-        >
-          <ExitToAppIcon />
-        </Button>
+              "&:hover": {
+                backgroundColor: "red",
+                color: "white",
+              },
+              borderRadius: "15px",
+              // mt: "2rem",
+            }}
+            onClick={() => {
+              window.location.reload();
+            }}
+          >
+            <ExitToAppIcon />
+          </Button>
+        </Box>
+        <Box>
+          {generatedSongs.length > 0 && (
+            <Playlist token={token} songs={generatedSongs} />
+          )}
+        </Box>
       </Box>
-      {generatedSongs.length > 0 && (
-        <Playlist token={token} songs={generatedSongs} />
-      )}
     </div>
   );
 }

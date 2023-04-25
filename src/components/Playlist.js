@@ -142,11 +142,18 @@ function Playlist({ token, songs }) {
             <CircularProgress />
           ) : (
             <Box>
-              <Typography variant="h3">Create Playlist</Typography>
+              <Typography
+                variant="h3"
+                sx={{
+                  textAlign: "center",
+                }}
+              >
+                Create Playlist
+              </Typography>
               <Box
                 sx={{
                   display: "flex",
-                  justifyContent: "space-between",
+                  justifyContent: "space-evenly",
                   alignItems: "center",
                   my: "1rem",
                 }}
@@ -164,6 +171,9 @@ function Playlist({ token, songs }) {
                   id="outlined-basic"
                   label="Playlist Description"
                   variant="outlined"
+                  sx={{
+                    width: "50%",
+                  }}
                   value={playlistDescription}
                   onChange={(e) => setPlaylistDescription(e.target.value)}
                 />
